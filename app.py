@@ -1,7 +1,10 @@
+from socket import socket
+
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, flash, jsonify
+from gunicorn import sock
 
 app = Flask(__name__)
 app.secret_key = "imm_sukruburakcetin"
@@ -67,4 +70,5 @@ def api_all():
 
 
 app.config['JSON_AS_ASCII'] = False
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 app.run()
